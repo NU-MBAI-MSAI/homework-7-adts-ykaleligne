@@ -34,6 +34,30 @@ class BST:
         else:
             insert_node(self.root)
 
+    def traverse_pre(self):
+        result = []
+
+        def _traverse_pre(node):
+            if node is not None:
+                result.append(node.val)
+                _traverse_pre(node.left)
+                _traverse_pre(node.right)
+
+        _traverse_pre(self.root)
+        return result
+
+    def traverse_post(self):
+        result = []
+
+        def _traverse_post(node):
+            if node is not None:
+                _traverse_post(node.left)
+                _traverse_post(node.right)
+                result.append(node.val)
+
+        _traverse_post(self.root)
+        return result
+
     def __eq__(self, other):
         return self.root == other.root
 
@@ -50,5 +74,5 @@ class BST:
 if __name__ == '__main__':
     nodes = [25, 20, 30, 29, 35, 15, 22]
     tree = BST.create(nodes)
-    # print(tree.traverse_pre()) # -> This should return the list [25, 20, 15, 22, 30, 29, 35]
-    # print(tree.traverse_post()) # -> This should return the list [15, 22, 20, 29, 35, 30, 25]
+    print(tree.traverse_pre()) # -> This should return the list [25, 20, 15, 22, 30, 29, 35]
+    print(tree.traverse_post()) # -> This should return the list [15, 22, 20, 29, 35, 30, 25]

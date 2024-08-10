@@ -36,6 +36,39 @@ class BST:
         else:
             insert_node(self.root)
 
+    def traverse_inorder(self):
+        result = []
+        stack = LifoQueue()
+        current = self.root
+
+        while not stack.empty() or current is not None:
+            while current is not None:
+                stack.put(current)
+                current= current.left
+
+            current = stack.get ()
+            result.append(current.val)
+            current = current.right
+
+        return result
+
+    def breadth_first_traversal(self):
+        result = []
+        queue= Queue()
+
+        if self.root is  not None:
+            queue.put(self.root)
+
+        while not queue.empty():
+            node = queue.get()
+            result.append(node.val)
+            if node.left is not None:
+                queue.put(node.left)
+            if node.right is not None:
+                queue.put(node.right)
+        return result
+
+
     def __eq__(self, other):
         return self.root == other.root
 
@@ -52,5 +85,5 @@ class BST:
 if __name__ == '__main__':
     nodes = [7, 10, 5, 9, 3, 6]
     bst = BST.create(nodes)
-    # print(bst.traverse_inorder()) # -> Should be [3, 5, 6, 7, 9, 10]
-    # print(bst.breadth_first_traversal())  # -> Should be [7, 5, 10, 3, 6, 9]
+    print(bst.traverse_inorder()) # -> Should be [3, 5, 6, 7, 9, 10]
+    print(bst.breadth_first_traversal())  # -> Should be [7, 5, 10, 3, 6, 9]
